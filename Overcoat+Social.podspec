@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   s.osx.deployment_target = '10.9'
 
   s.frameworks = 'Accounts', 'Social'
-  s.dependency 'AFNetworking/Serialization', '~> 3.0'
+  s.dependency 'AFNetworking/Serialization', '~> 4.0'
 
   s.source_files = 'sources/Social/*.{h,m}'
   s.header_dir = 'OvercoatSocial'

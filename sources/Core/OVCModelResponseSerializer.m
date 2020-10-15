@@ -234,14 +234,6 @@ void __ovc_URLSession_task_didCompleteWithError_(ovc_dummy_AFURLSessionManagerTa
     self.jsonSerializer.acceptableStatusCodes = acceptableStatusCodes;
 }
 
-- (NSStringEncoding)stringEncoding {
-    return self.jsonSerializer.stringEncoding;
-}
-
-- (void)setStringEncoding:(NSStringEncoding)stringEncoding {
-    self.jsonSerializer.stringEncoding = stringEncoding;
-}
-
 - (BOOL)validateResponse:(NSHTTPURLResponse *)response
                     data:(NSData *)data
                    error:(NSError *OVC__NULLABLE __autoreleasing *OVC__NULLABLE)error {

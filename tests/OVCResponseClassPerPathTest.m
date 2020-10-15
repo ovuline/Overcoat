@@ -7,8 +7,8 @@
 //
 
 #import <XCTest/XCTest.h>
-#import <OHHTTPStubs/OHHTTPStubs.h>
-#import <OHHTTPStubs/OHPathHelpers.h>
+#import <OHHTTPStubs/HTTPStubs.h>
+#import <OHHTTPStubs/HTTPStubsPathHelpers.h>
 #import <OVercoat/Overcoat.h>
 
 #import "OVCTestModel.h"
@@ -62,10 +62,10 @@
 }
 
 - (void)tearDown {
-    [self.client invalidateSessionCancelingTasks:YES];
+    [self.client invalidateSessionCancelingTasks:YES resetSession:YES];
     
     self.client = nil;
-    [OHHTTPStubs removeAllStubs];
+    [HTTPStubs removeAllStubs];
     
     [super tearDown];
 }
@@ -77,12 +77,12 @@
 - (void)testEnvelopOption1GET {
     NSURLRequest * __block request = nil;
     
-    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *r) {
+    [HTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *r) {
         request = r;
         return YES;
-    } withStubResponse:^OHHTTPStubsResponse *(NSURLRequest *request) {
+    } withStubResponse:^HTTPStubsResponse *(NSURLRequest *request) {
         NSString * path = OHPathForFile(@"envelop1_model.json", self.class);
-        return [OHHTTPStubsResponse responseWithFileAtPath:path
+        return [HTTPStubsResponse responseWithFileAtPath:path
                                                 statusCode:200
                                                    headers:@{@"Content-Type": @"application/json"}];
     }];
@@ -111,12 +111,12 @@
 - (void)testEnvelopOption2GET {
     NSURLRequest * __block request = nil;
     
-    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *r) {
+    [HTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *r) {
         request = r;
         return YES;
-    } withStubResponse:^OHHTTPStubsResponse *(NSURLRequest *request) {
+    } withStubResponse:^HTTPStubsResponse *(NSURLRequest *request) {
         NSString * path = OHPathForFile(@"envelop2_model.json", self.class);
-        return [OHHTTPStubsResponse responseWithFileAtPath:path
+        return [HTTPStubsResponse responseWithFileAtPath:path
                                                 statusCode:200
                                                    headers:@{@"Content-Type": @"application/json"}];
     }];

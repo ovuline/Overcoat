@@ -8,8 +8,8 @@
 
 #import <XCTest/XCTest.h>
 #import <CoreData/CoreData.h>
-#import <OHHTTPStubs/OHHTTPStubs.h>
-#import <OHHTTPStubs/OHPathHelpers.h>
+#import <OHHTTPStubs/HTTPStubs.h>
+#import <OHHTTPStubs/HTTPStubsPathHelpers.h>
 #import <Overcoat/Overcoat.h>
 #import <OvercoatCoreData/OvercoatCoreData.h>
 #import "OVCCoreDataTestModel.h"
@@ -76,13 +76,13 @@
 
     // Setup HTTP stub
 
-    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
+    [HTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
         return YES;
-    } withStubResponse:^OHHTTPStubsResponse *(NSURLRequest *request) {
+    } withStubResponse:^HTTPStubsResponse *(NSURLRequest *request) {
         NSString * path = OHPathForFile(@"models.json", self.class);
-        return [OHHTTPStubsResponse responseWithFileAtPath:path
-                                                statusCode:200
-                                                   headers:@{@"Content-Type": @"application/json"}];
+        return [HTTPStubsResponse responseWithFileAtPath:path
+                                              statusCode:200
+                                                 headers:@{@"Content-Type": @"application/json"}];
     }];
 
     // Get models

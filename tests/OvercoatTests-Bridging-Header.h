@@ -3,4 +3,4 @@
 //
 
 #import <Overcoat/Overcoat.h>
-#import <OHHTTPStubs/OHHTTPStubs.h>
+#import <OHHTTPStubs/HTTPStubs.h>

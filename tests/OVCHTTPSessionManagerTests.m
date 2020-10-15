@@ -7,9 +7,9 @@
 //
 
 #import <XCTest/XCTest.h>
-#import <OHHTTPStubs/OHHTTPStubs.h>
-#import <OHHTTPStubs/OHPathHelpers.h>
-#import <OVercoat/Overcoat.h>
+#import <OHHTTPStubs/HTTPStubs.h>
+#import <OHHTTPStubs/HTTPStubsPathHelpers.h>
+#import <Overcoat/Overcoat.h>
 
 #import "OVCTestModel.h"
 
@@ -53,10 +53,10 @@
 }
 
 - (void)tearDown {
-    [self.client invalidateSessionCancelingTasks:YES];
+    [self.client invalidateSessionCancelingTasks:YES resetSession:YES];
     
     self.client = nil;
-    [OHHTTPStubs removeAllStubs];
+    [HTTPStubs removeAllStubs];
     
     [super tearDown];
 }
@@ -68,16 +68,16 @@
 - (void)testGET {
     NSURLRequest * __block request = nil;
     id __block expectedRawResult = nil;
-    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *r) {
+    [HTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *r) {
         request = r;
         return YES;
-    } withStubResponse:^OHHTTPStubsResponse *(NSURLRequest *request) {
+    } withStubResponse:^HTTPStubsResponse *(NSURLRequest *request) {
         NSString *path = OHPathForFile(@"model.json", self.class);
         NSData *responseData = [NSData dataWithContentsOfFile:path];
         expectedRawResult = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:nil];
-        return [OHHTTPStubsResponse responseWithData:responseData
-                                          statusCode:200
-                                             headers:@{@"Content-Type": @"application/json"}];
+        return [HTTPStubsResponse responseWithData:responseData
+                                        statusCode:200
+                                           headers:@{@"Content-Type": @"application/json"}];
     }];
     
     XCTestExpectation *completed = [self expectationWithDescription:@"completed"];
@@ -104,13 +104,13 @@
 }
 
 - (void)testGETError {
-    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
+    [HTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
         return YES;
-    } withStubResponse:^OHHTTPStubsResponse *(NSURLRequest *request) {
+    } withStubResponse:^HTTPStubsResponse *(NSURLRequest *request) {
         NSString * path = OHPathForFile(@"error.json", self.class);
-        return [OHHTTPStubsResponse responseWithFileAtPath:path
-                                                statusCode:401
-                                                   headers:@{@"Content-Type": @"application/json"}];
+        return [HTTPStubsResponse responseWithFileAtPath:path
+                                              statusCode:401
+                                                 headers:@{@"Content-Type": @"application/json"}];
     }];
     
     XCTestExpectation *completed = [self expectationWithDescription:@"completed"];
@@ -135,13 +135,13 @@
 - (void)testHEAD {
     NSURLRequest * __block request = nil;
     
-    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *r) {
+    [HTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *r) {
         request = r;
         return YES;
-    } withStubResponse:^OHHTTPStubsResponse *(NSURLRequest *request) {
-        return [OHHTTPStubsResponse responseWithData:[NSData data]
-                                          statusCode:200
-                                             headers:@{@"Content-Type": @"application/json"}];
+    } withStubResponse:^HTTPStubsResponse *(NSURLRequest *request) {
+        return [HTTPStubsResponse responseWithData:[NSData data]
+                                        statusCode:200
+                                           headers:@{@"Content-Type": @"application/json"}];
     }];
     
     XCTestExpectation *completed = [self expectationWithDescription:@"completed"];
@@ -165,14 +165,14 @@
 - (void)testPOST200 {
     NSURLRequest * __block request = nil;
 
-    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *r) {
+    [HTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *r) {
         request = r;
         return YES;
-    } withStubResponse:^OHHTTPStubsResponse *(NSURLRequest *request) {
+    } withStubResponse:^HTTPStubsResponse *(NSURLRequest *request) {
         NSString * path = OHPathForFile(@"model.json", self.class);
-        return [OHHTTPStubsResponse responseWithFileAtPath:path
-                                                statusCode:200
-                                                   headers:@{@"Content-Type": @"application/json"}];
+        return [HTTPStubsResponse responseWithFileAtPath:path
+                                              statusCode:200
+                                                 headers:@{@"Content-Type": @"application/json"}];
     }];
 
     XCTestExpectation *completed = [self expectationWithDescription:@"completed"];
@@ -199,14 +199,14 @@
 - (void)testPOST201 {
     NSURLRequest * __block request = nil;
     
-    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *r) {
+    [HTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *r) {
         request = r;
         return YES;
-    } withStubResponse:^OHHTTPStubsResponse *(NSURLRequest *request) {
+    } withStubResponse:^HTTPStubsResponse *(NSURLRequest *request) {
         NSString * path = OHPathForFile(@"model.json", self.class);
-        return [OHHTTPStubsResponse responseWithFileAtPath:path
-                                                statusCode:201
-                                                   headers:@{@"Content-Type": @"application/json"}];
+        return [HTTPStubsResponse responseWithFileAtPath:path
+                                              statusCode:201
+                                                 headers:@{@"Content-Type": @"application/json"}];
     }];
     
     XCTestExpectation *completed = [self expectationWithDescription:@"completed"];
@@ -231,13 +231,13 @@
 }
 
 - (void)testPOSTError {
-    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
+    [HTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
         return YES;
-    } withStubResponse:^OHHTTPStubsResponse *(NSURLRequest *request) {
+    } withStubResponse:^HTTPStubsResponse *(NSURLRequest *request) {
         NSString * path = OHPathForFile(@"error.json", self.class);
-        return [OHHTTPStubsResponse responseWithFileAtPath:path
-                                                statusCode:401
-                                                   headers:@{@"Content-Type": @"application/json"}];
+        return [HTTPStubsResponse responseWithFileAtPath:path
+                                              statusCode:401
+                                                 headers:@{@"Content-Type": @"application/json"}];
     }];
     
     XCTestExpectation *completed = [self expectationWithDescription:@"completed"];
@@ -262,14 +262,14 @@
 - (void)testPUT {
     NSURLRequest * __block request = nil;
     
-    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *r) {
+    [HTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *r) {
         request = r;
         return YES;
-    } withStubResponse:^OHHTTPStubsResponse *(NSURLRequest *request) {
+    } withStubResponse:^HTTPStubsResponse *(NSURLRequest *request) {
         NSString * path = OHPathForFile(@"model.json", self.class);
-        return [OHHTTPStubsResponse responseWithFileAtPath:path
-                                                statusCode:200
-                                                   headers:@{@"Content-Type": @"application/json"}];
+        return [HTTPStubsResponse responseWithFileAtPath:path
+                                              statusCode:200
+                                                 headers:@{@"Content-Type": @"application/json"}];
     }];
     
     XCTestExpectation *completed = [self expectationWithDescription:@"completed"];
@@ -291,13 +291,13 @@
 }
 
 - (void)testPUTError {
-    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
+    [HTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
         return YES;
-    } withStubResponse:^OHHTTPStubsResponse *(NSURLRequest *request) {
+    } withStubResponse:^HTTPStubsResponse *(NSURLRequest *request) {
         NSString * path = OHPathForFile(@"error.json", self.class);
-        return [OHHTTPStubsResponse responseWithFileAtPath:path
-                                                statusCode:401
-                                                   headers:@{@"Content-Type": @"application/json"}];
+        return [HTTPStubsResponse responseWithFileAtPath:path
+                                              statusCode:401
+                                                 headers:@{@"Content-Type": @"application/json"}];
     }];
     
     XCTestExpectation *completed = [self expectationWithDescription:@"completed"];
@@ -319,14 +319,14 @@
 - (void)testPATCH {
     NSURLRequest * __block request = nil;
     
-    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *r) {
+    [HTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *r) {
         request = r;
         return YES;
-    } withStubResponse:^OHHTTPStubsResponse *(NSURLRequest *request) {
+    } withStubResponse:^HTTPStubsResponse *(NSURLRequest *request) {
         NSString * path = OHPathForFile(@"model.json", self.class);
-        return [OHHTTPStubsResponse responseWithFileAtPath:path
-                                                statusCode:200
-                                                   headers:@{@"Content-Type": @"application/json"}];
+        return [HTTPStubsResponse responseWithFileAtPath:path
+                                              statusCode:200
+                                                 headers:@{@"Content-Type": @"application/json"}];
     }];
     
     XCTestExpectation *completed = [self expectationWithDescription:@"completed"];
@@ -348,13 +348,13 @@
 }
 
 - (void)testPATCHError {
-    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
+    [HTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
         return YES;
-    } withStubResponse:^OHHTTPStubsResponse *(NSURLRequest *request) {
+    } withStubResponse:^HTTPStubsResponse *(NSURLRequest *request) {
         NSString * path = OHPathForFile(@"error.json", self.class);
-        return [OHHTTPStubsResponse responseWithFileAtPath:path
-                                                statusCode:401
-                                                   headers:@{@"Content-Type": @"application/json"}];
+        return [HTTPStubsResponse responseWithFileAtPath:path
+                                              statusCode:401
+                                                 headers:@{@"Content-Type": @"application/json"}];
     }];
     
     XCTestExpectation *completed = [self expectationWithDescription:@"completed"];
@@ -376,14 +376,14 @@
 - (void)testDELETE {
     NSURLRequest * __block request = nil;
     
-    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *r) {
+    [HTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *r) {
         request = r;
         return YES;
-    } withStubResponse:^OHHTTPStubsResponse *(NSURLRequest *request) {
+    } withStubResponse:^HTTPStubsResponse *(NSURLRequest *request) {
         NSString * path = OHPathForFile(@"model.json", self.class);
-        return [OHHTTPStubsResponse responseWithFileAtPath:path
-                                                statusCode:200
-                                                   headers:@{@"Content-Type": @"application/json"}];
+        return [HTTPStubsResponse responseWithFileAtPath:path
+                                              statusCode:200
+                                                 headers:@{@"Content-Type": @"application/json"}];
     }];
     
     XCTestExpectation *completed = [self expectationWithDescription:@"completed"];
@@ -405,13 +405,13 @@
 }
 
 - (void)testDELETEError {
-    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
+    [HTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
         return YES;
-    } withStubResponse:^OHHTTPStubsResponse *(NSURLRequest *request) {
+    } withStubResponse:^HTTPStubsResponse *(NSURLRequest *request) {
         NSString * path = OHPathForFile(@"error.json", self.class);
-        return [OHHTTPStubsResponse responseWithFileAtPath:path
-                                                statusCode:401
-                                                   headers:@{@"Content-Type": @"application/json"}];
+        return [HTTPStubsResponse responseWithFileAtPath:path
+                                              statusCode:401
+                                                 headers:@{@"Content-Type": @"application/json"}];
     }];
     
     XCTestExpectation *completed = [self expectationWithDescription:@"completed"];

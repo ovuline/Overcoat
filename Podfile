@@ -1,4 +1,4 @@
-source 'https://github.com/CocoaPods/Specs.git'
+source 'https://cdn.cocoapods.org/'
 
 use_frameworks!
 inhibit_all_warnings!
@@ -22,7 +22,7 @@ target "OvercoatTests-OSX" do
 end
 
 target "OvercoatTests-iOS" do
-  platform :ios, '8.0'
+  platform :ios, '9.0'
   shared_dependencies
   extra_dependencies
 end
@@ -45,7 +45,7 @@ post_install do |installer|
       end
     end
     target.build_configurations.each do |config|
-      config.build_settings['SWIFT_VERSION'] = '3.0'
+      config.build_settings['SWIFT_VERSION'] = '5.0'
     end
   end
 end
