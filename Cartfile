@@ -1,7 +1,6 @@
 github "AFNetworking/AFNetworking" ~> 4.0
 github "Mantle/Mantle" ~> 2.1
 
-# github "Mantle/MTLManagedObjectAdapter" "master"
-git "file:///Users/cjh/Dev/OviaHealth/MTLManagedObjectAdapter" "master"
+github "ovuline/MTLManagedObjectAdapter" "master"
 github "mxcl/PromiseKit" ~> 6.13
 github "ReactiveCocoa/ReactiveObjC" ~> 3.1

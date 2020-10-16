@@ -1,5 +1,5 @@
-git "file:///Users/cjh/Dev/OviaHealth/MTLManagedObjectAdapter" "8ae6b2355fd7cf109da45691d0da31b1c6b6d154"
 github "AFNetworking/AFNetworking" "4.0.1"
 github "Mantle/Mantle" "2.1.5"
 github "ReactiveCocoa/ReactiveObjC" "3.1.1"
 github "mxcl/PromiseKit" "6.13.3"
+github "ovuline/MTLManagedObjectAdapter" "8ae6b2355fd7cf109da45691d0da31b1c6b6d154"
