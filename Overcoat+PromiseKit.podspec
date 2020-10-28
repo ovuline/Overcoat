@@ -15,7 +15,9 @@ Pod::Spec.new do |s|
   s.watchos.deployment_target = '2.0'
 
   s.dependency 'Overcoat', "~> #{s.version.to_s}"
-  s.dependency 'PromiseKit/CorePromise', '> 2'  # Swift 2.0 support comes after PromiseKit 3.0
+  s.dependency 'PromiseKit/CorePromise', '~> 6.13'
+
+  s.pod_target_xcconfig = { 'SWIFT_VERSION' => '3.0' }
 
   s.source_files = 'sources/PromiseKit/*.{h,m}'
   s.header_dir = 'OvercoatPromiseKit'
