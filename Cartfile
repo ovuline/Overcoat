@@ -1,5 +1,5 @@
 github "AFNetworking/AFNetworking" ~> 4.0
-github "Mantle/Mantle" ~> 2.1
+github "Mantle/Mantle" "master"
 
 github "ovuline/MTLManagedObjectAdapter" "master"
 github "mxcl/PromiseKit" ~> 6.13
