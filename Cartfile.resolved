@@ -1,5 +1,5 @@
 github "AFNetworking/AFNetworking" "4.0.1"
 github "Mantle/Mantle" "bbe0cbe68582a18a6df7516778196ba3cf420ad3"
-github "ReactiveCocoa/ReactiveObjC" "3.1.1"
 github "mxcl/PromiseKit" "6.13.3"
 github "ovuline/MTLManagedObjectAdapter" "444d33dfa8caaf4231be65a66fe0aa363cdaca03"
+github "ovuline/ReactiveObjC" "b0e9c0c5216cf9c17214d8f8d602d2ed98a5ccfb"

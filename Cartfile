@@ -3,4 +3,4 @@ github "Mantle/Mantle" "master"
 
 github "ovuline/MTLManagedObjectAdapter" "master"
 github "mxcl/PromiseKit" ~> 6.13
-github "ReactiveCocoa/ReactiveObjC" ~> 3.1
+github "ovuline/ReactiveObjC" "warnings-as-errors"
